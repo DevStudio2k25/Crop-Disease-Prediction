@@ -1,259 +1,152 @@
-# Crop Disease Prediction System
+# Crop Disease Prediction 🌱
 
-An AI-powered web application for detecting plant diseases using Convolutional Neural Networks (CNN). This system analyzes plant leaf images and provides instant disease diagnosis with treatment recommendations.
+Deep Learning-based Crop Disease Detection System using Convolutional Neural Networks.
 
-## 🌟 Features
+## 🎯 Features
 
-- **Real-time Disease Detection**: Upload plant images and get instant predictions
-- **High Accuracy**: Deep learning model trained on comprehensive plant disease dataset
-- **Detailed Analysis**: Confidence scores and probability distribution for all disease classes
-- **Treatment Recommendations**: Actionable advice for disease management
-- **User-Friendly Interface**: Clean and intuitive web interface
-- **Responsive Design**: Works on desktop and mobile devices
+- **13 Disease Classes**: Detects 13 different crop diseases and healthy plants
+- **High Accuracy**: Trained on 32,000+ images
+- **Web Interface**: Easy-to-use Flask web application
+- **Real-time Predictions**: Instant disease detection from uploaded images
 
-## 🎯 Disease Categories
+## 📊 Supported Diseases
 
-The system can identify the following conditions:
+1. Bacterial Spot
+2. Early Blight
+3. Healthy
+4. Late Blight
+5. Leaf Mold
+6. Mosaic Virus
+7. Multiple Diseases
+8. Rust
+9. Scab
+10. Septoria Leaf Spot
+11. Spider Mites
+12. Target Spot
+13. Yellow Leaf Curl
 
-1. **Healthy** - No disease detected
-2. **Rust** - Fungal disease with orange-brown pustules
-3. **Scab** - Dark scabby lesions on leaves and fruits
-4. **Multiple Diseases** - Multiple infections present simultaneously
+## 🚀 Quick Start
 
-## 🏗️ Project Structure
-
-```
-crop-disease-prediction/
-│
-├── dataset/                    # Organized dataset (created by organize_data.py)
-│   ├── train/
-│   │   ├── healthy/
-│   │   ├── multiple_diseases/
-│   │   ├── rust/
-│   │   └── scab/
-│   └── test/
-│
-├── models/                     # Trained models (created during training)
-│   ├── best_model.h5
-│   ├── final_model.h5
-│   ├── class_indices.json
-│   └── training_history.png
-│
-├── static/                     # Static files for web app
-│   ├── style.css
-│   ├── script.js
-│   └── uploads/
-│
-├── templates/                  # HTML templates
-│   ├── index.html
-│   └── about.html
-│
-├── organize_data.py           # Data organization script
-├── train_model.py             # Model training script
-├── app.py                     # Flask web application
-├── requirements.txt           # Python dependencies
-└── README.md                  # This file
-```
-
-## 🚀 Installation & Setup
-
-### Step 1: Install Dependencies
+### Local Development
 
 ```bash
+# Clone the repository
+git clone https://github.com/DevStudio2k25/Crop-Disease-Prediction.git
+cd Crop-Disease-Prediction
+
+# Install dependencies
 pip install -r requirements.txt
-```
 
-### Step 2: Organize Dataset
+# Train the model (optional - if you want to retrain)
+python train_fast.py
 
-```bash
-python organize_data.py
-```
-
-This script will:
-- Read the CSV files containing labels
-- Organize images into class-wise folders
-- Create train/test split
-- Display dataset summary
-
-### Step 3: Train the Model
-
-```bash
-python train_model.py
-```
-
-This will:
-- Build the CNN architecture
-- Train the model with data augmentation
-- Save the best model based on validation accuracy
-- Generate training history plots
-- Save class indices for prediction
-
-Training parameters:
-- Image size: 224x224
-- Batch size: 32
-- Epochs: 50 (with early stopping)
-- Optimizer: Adam
-- Loss: Categorical Crossentropy
-
-### Step 4: Run Web Application
-
-```bash
+# Run the web application
 python app.py
 ```
 
-Open your browser and navigate to: `http://localhost:5000`
+Visit `http://localhost:5000` in your browser.
 
-## 🧠 Model Architecture
+## 📦 Deployment
 
-The CNN model consists of:
+### Option 1: Render.com (Recommended)
+
+1. Fork this repository
+2. Create account on [Render.com](https://render.com)
+3. Create new Web Service
+4. Connect your GitHub repository
+5. Set build command: `pip install -r requirements.txt`
+6. Set start command: `gunicorn app:app`
+7. **Important**: Upload your trained model (`best_model.h5`) to cloud storage (Google Drive, Dropbox, etc.) and update the download link in the app
+
+### Option 2: Hugging Face Spaces
+
+1. Create account on [Hugging Face](https://huggingface.co)
+2. Create new Space
+3. Upload model file to the Space
+4. Deploy!
+
+### Option 3: Local Server
+
+```bash
+gunicorn app:app --bind 0.0.0.0:5000
+```
+
+## 🎓 Model Training
+
+### Fast Training (Recommended)
+```bash
+python train_fast.py
+```
+- Optimized for speed (~10-15 min per epoch)
+- Uses 160x160 images
+- Batch size: 64
+
+### Standard Training
+```bash
+python train_incremental.py
+```
+- Higher quality (~50 min per epoch)
+- Uses 224x224 images
+- Batch size: 32
+
+## 📁 Project Structure
 
 ```
-Input Layer (224x224x3)
-    ↓
-Conv2D (32 filters) → BatchNorm → MaxPool → Dropout
-    ↓
-Conv2D (64 filters) → BatchNorm → MaxPool → Dropout
-    ↓
-Conv2D (128 filters) → BatchNorm → MaxPool → Dropout
-    ↓
-Conv2D (256 filters) → BatchNorm → MaxPool → Dropout
-    ↓
-Flatten
-    ↓
-Dense (512 units) → BatchNorm → Dropout
-    ↓
-Dense (256 units) → BatchNorm → Dropout
-    ↓
-Output Layer (4 units, Softmax)
+Crop-Disease-Prediction/
+├── app.py                  # Flask web application
+├── train_fast.py          # Fast training script
+├── train_incremental.py   # Incremental training script
+├── requirements.txt       # Python dependencies
+├── Procfile              # Deployment configuration
+├── runtime.txt           # Python version
+├── templates/            # HTML templates
+│   ├── index.html
+│   └── about.html
+├── static/              # CSS, JS, images
+│   ├── style.css
+│   └── script.js
+└── models/              # Trained models (not in git)
+    ├── best_model.h5
+    └── class_indices.json
 ```
-
-**Key Features:**
-- Batch Normalization for stable training
-- Dropout layers for regularization
-- MaxPooling for spatial dimension reduction
-- ReLU activation for non-linearity
-- Softmax for multi-class classification
-
-## 📊 Training Process
-
-1. **Data Preprocessing**:
-   - Images resized to 224x224
-   - Pixel values normalized to [0, 1]
-   - 80-20 train-validation split
-
-2. **Data Augmentation**:
-   - Random rotation (±20°)
-   - Width/height shift (20%)
-   - Horizontal flip
-   - Zoom (20%)
-   - Shear transformation
-
-3. **Training Strategy**:
-   - Early stopping (patience: 10 epochs)
-   - Learning rate reduction on plateau
-   - Model checkpoint to save best weights
-
-4. **Evaluation**:
-   - Validation accuracy monitoring
-   - Training/validation loss curves
-   - Confusion matrix analysis
-
-## 💻 Web Application Usage
-
-1. **Upload Image**:
-   - Click on upload box or drag & drop
-   - Supported formats: JPG, JPEG, PNG
-   - Maximum size: 16MB
-
-2. **Get Prediction**:
-   - Click "Analyze Image" button
-   - Wait for processing (few seconds)
-   - View detailed results
-
-3. **Results Display**:
-   - Disease name and confidence score
-   - Description of the condition
-   - Severity level
-   - Treatment recommendations
-   - Probability distribution for all classes
 
 ## 🔧 Technical Details
 
-### Backend (Flask)
-- Image upload handling
-- Model loading and prediction
-- JSON API responses
-- Static file serving
-
-### Frontend
-- Responsive HTML/CSS design
-- JavaScript for interactivity
-- Drag-and-drop file upload
-- Real-time result display
-- Smooth animations
-
-### Machine Learning
-- TensorFlow/Keras framework
-- Custom CNN architecture
-- Image preprocessing pipeline
-- Multi-class classification
-
-## 📈 Model Performance
-
-The model achieves high accuracy on the validation set. Performance metrics include:
-- Training accuracy
-- Validation accuracy
-- Loss curves
-- Per-class precision and recall
-
-Detailed metrics are saved in `models/training_history.png`
-
-## 🎓 Educational Value
-
-This project demonstrates:
-- End-to-end machine learning pipeline
-- Deep learning for computer vision
-- Web application development
-- Model deployment
-- User interface design
-
-Perfect for:
-- Final year projects
-- Machine learning portfolios
-- Agricultural technology demonstrations
-- AI application showcases
+- **Framework**: TensorFlow/Keras
+- **Architecture**: Custom CNN with 4 convolutional blocks
+- **Input Size**: 224x224 (standard) or 160x160 (fast)
+- **Dataset**: 32,000+ crop disease images
+- **Classes**: 13 (12 diseases + healthy)
 
 ## ⚠️ Important Notes
 
-1. **Model Training**: Training may take 1-2 hours depending on hardware
-2. **GPU Recommended**: For faster training, use GPU-enabled TensorFlow
-3. **Dataset Size**: Ensure sufficient disk space for images
-4. **Memory**: At least 8GB RAM recommended for training
+### Model File
+The trained model file (`best_model.h5`) is ~232MB and cannot be stored in Git. You have two options:
 
-## 🔒 Disclaimer
+1. **Train your own model**: Run `train_fast.py` or `train_incremental.py`
+2. **Download pre-trained model**: Contact the repository owner for the model file
 
-This system is designed for educational and assistive purposes. While it provides accurate predictions, it should not replace professional agricultural consultation. Always consult with agricultural experts for critical decisions regarding crop management.
+### For Deployment
+Upload your trained model to:
+- Google Drive
+- Dropbox
+- Hugging Face
+- AWS S3
+
+Then update the download link in `app.py` or use the `download_model.py` script.
 
 ## 📝 License
 
-This project is created for educational purposes.
+MIT License - feel free to use for educational purposes
 
-## 👨‍💻 Development
+## 👨‍💻 Author
 
-Built with:
-- Python 3.8+
-- TensorFlow 2.13
-- Flask 2.3
-- HTML5/CSS3/JavaScript
+DevStudio2k25
 
 ## 🤝 Contributing
 
-This is an educational project. Feel free to fork and modify for your learning purposes.
+Contributions, issues, and feature requests are welcome!
 
-## 📧 Support
+## ⭐ Show your support
 
-For questions or issues, please refer to the code comments and documentation.
-
----
-
-**Note**: This is a complete, standalone project suitable for academic presentations and demonstrations.
+Give a ⭐️ if this project helped you!

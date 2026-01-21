@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Crop Disease Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🌱 Crop Disease Prediction</h1>
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/about" class="active">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-content">
+        <div class="about-section">
+            <h2>About This Project</h2>
+
+            <div class="about-card">
+                <h3>🎯 Project Overview</h3>
+                <p>
+                    This Crop Disease Prediction System is an AI-powered web application designed to help farmers
+                    and agricultural professionals identify plant diseases quickly and accurately. Using deep learning
+                    and computer vision, the system analyzes plant leaf images and provides instant diagnosis along
+                    with treatment recommendations.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h3>🧠 Technology Stack</h3>
+                <ul class="tech-list">
+                    <li><strong>Backend:</strong> Python, Flask</li>
+                    <li><strong>Machine Learning:</strong> TensorFlow, Keras</li>
+                    <li><strong>Model:</strong> Convolutional Neural Network (CNN)</li>
+                    <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript</li>
+                    <li><strong>Image Processing:</strong> OpenCV, PIL</li>
+                </ul>
+            </div>
+
+            <div class="about-card">
+                <h3>🏗️ Model Architecture</h3>
+                <p>
+                    The system uses a custom Convolutional Neural Network (CNN) with the following architecture:
+                </p>
+                <ul class="tech-list">
+                    <li>4 Convolutional blocks with increasing filter sizes (32, 64, 128, 256)</li>
+                    <li>Batch Normalization for stable training</li>
+                    <li>MaxPooling layers for spatial dimension reduction</li>
+                    <li>Dropout layers for regularization</li>
+                    <li>Dense layers with 512 and 256 neurons</li>
+                    <li>Softmax output layer for multi-class classification</li>
+                </ul>
+            </div>
+
+            <div class="about-card">
+                <h3>📊 Disease Categories</h3>
+                <div class="disease-grid">
+                    <div class="disease-item">
+                        <h4 style="color: #28a745;">✓ Healthy</h4>
+                        <p>No disease detected</p>
+                    </div>
+                    <div class="disease-item">
+                        <h4 style="color: #fd7e14;">⚠ Rust</h4>
+                        <p>Fungal disease with orange-brown pustules</p>
+                    </div>
+                    <div class="disease-item">
+                        <h4 style="color: #ffc107;">⚠ Scab</h4>
+                        <p>Dark scabby lesions on leaves</p>
+                    </div>
+                    <div class="disease-item">
+                        <h4 style="color: #dc3545;">⚠ Multiple Diseases</h4>
+                        <p>Multiple infections present</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h3>🔬 How It Works</h3>
+                <ol class="steps-list">
+                    <li><strong>Image Upload:</strong> User uploads a plant leaf image</li>
+                    <li><strong>Preprocessing:</strong> Image is resized and normalized</li>
+                    <li><strong>Feature Extraction:</strong> CNN extracts relevant features</li>
+                    <li><strong>Classification:</strong> Model predicts disease category</li>
+                    <li><strong>Results:</strong> System displays diagnosis and recommendations</li>
+                </ol>
+            </div>
+
+            <div class="about-card">
+                <h3>📈 Model Performance</h3>
+                <p>
+                    The model has been trained on a comprehensive dataset of plant images with various
+                    disease conditions. It achieves high accuracy in identifying different disease categories
+                    and provides reliable predictions for real-world agricultural applications.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h3>🎓 Educational Purpose</h3>
+                <p>
+                    This project demonstrates the practical application of deep learning in agriculture.
+                    It showcases how AI can be used to solve real-world problems and assist farmers in
+                    making informed decisions about crop health management.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h3>⚠️ Disclaimer</h3>
+                <p>
+                    This system is designed for educational and assistive purposes. While it provides
+                    accurate predictions, it should not replace professional agricultural consultation.
+                    Always consult with agricultural experts for critical decisions regarding crop management.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Crop Disease Prediction System. Built with AI for Agriculture.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
